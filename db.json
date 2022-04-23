@@ -1,9 +1,9 @@
 {
     "product": [
         {
-            "model": "Smart Tv Noblex Dk50x6500 Led 4k 50",
-            "photo": "",
-            "date": 0,
+            "descrip": "Smart Tv Noblex Dk50x6500 Led 4k 50",
+            "fkclient": 1,
+            "date": "...",
             "deleted": false,
             "id": 1
         }
@@ -21,7 +21,6 @@
     "repair": [
         {
             "fkproduct": 1,
-            "fkclient": 1,
             "fkstate": 1,
             "observation": "...",
             "date": 0,
