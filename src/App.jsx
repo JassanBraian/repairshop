@@ -6,7 +6,7 @@ import ProductInquiry from './components/entities/product/baseProduct/ProductInq
 import Home from './screens/Home/Home';
 import NavbarComp from './components/common/navbar/NavBarComp';
 import Footer from './components/common/footer/Footer';
-import { Stack } from 'react-bootstrap';
+import OffCanvasComp from './components/common/offcanvas/OffCanvasComp';
 
 function App() {
   const [products, setProducts] = useState([]);
