@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ProductInquiry from './components/entities/product/baseProduct/ProductInquiry';
@@ -44,7 +43,10 @@ function App() {
           exact
           path="/products"
           element={
-            <ProductInquiry products={products} />
+            <ProductInquiry
+              products={products}
+              getProducts={getProducts}
+            />
           }
         ></Route>
       </Routes>

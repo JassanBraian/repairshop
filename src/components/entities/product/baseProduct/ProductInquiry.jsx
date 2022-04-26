@@ -1,5 +1,6 @@
 import React from 'react';
 import { Table } from 'react-bootstrap';
+import ProductFuncFC from './ProductFuncFC';
 
 const ProductInquiry = (props) => {
     return (
@@ -21,6 +22,7 @@ const ProductInquiry = (props) => {
                             <th>Client</th>
                             <th>Date</th>
                             <th>Deleted</th>
+                            <th className='text-center'>Operaciones</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -32,6 +34,15 @@ const ProductInquiry = (props) => {
                                     <td>{product.fkclient}</td>
                                     <td>{product.date}</td>
                                     <td>{product.deleted ? 'Yes' : 'No'}</td>
+                                    <td>
+                                        <section className='d-flex justify-content-center'>
+                                            <ProductFuncFC
+                                                productId={product.id}
+                                                products={props.products}
+                                                getProducts={props.getProducts}
+                                            />
+                                        </section>
+                                    </td>
                                 </tr>
                             ))
                         }
