@@ -1,9 +1,12 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Form, FloatingLabel, } from 'react-bootstrap';
-import { validateStr, existDescrip, capitalizeFirstLetter } from '../../../../services/CrudBase/CrudValidationServices';
+import {
+    validateStr, existDescrip,
+    capitalizeFirstLetter, validateDate
+} from '../../../../services/CrudBase/CrudValidationServices';
 import { getButtonLabel } from '../../../../services/CrudBase/CrudServices';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faInfoCircle } from "@fortawesome/free-solid-svg-icons";
+import { faInfoCircle, faCalendarAlt } from "@fortawesome/free-solid-svg-icons";
 import Swal from 'sweetalert2';
 
 const ProductFormCrud = (props) => {
@@ -12,11 +15,20 @@ const ProductFormCrud = (props) => {
     const URLCreate = process.env.REACT_APP_API_URL + 'product';
 
     const [descrip, setDescrip] = useState('');
+    const [fkclient, setFkclient] = useState(0);
+    const [date, setDate] = useState('');
+    const [deleted, setDeleted] = useState('');
 
     const [descripVal, setDescripVal] = useState('');
     const [descripInv, setDescripInv] = useState('');
+    const [fkclientVal, setFkclientVal] = useState('');
+    const [fkclientInv, setFkclientInv] = useState('');
+    const [dateVal, setDateVal] = useState('');
+    const [dateInv, setDateInv] = useState('');
 
     const descripRef = useRef('');
+    const fkclientRef = useRef(0);
+    const dateRef = useRef('');
 
     useEffect(() => {
         props.productId && getProduct();
@@ -28,6 +40,9 @@ const ProductFormCrud = (props) => {
             if (res.status === 200) {
                 const objJson = await res.json();
                 setDescrip(objJson.descrip);
+                setFkclient(objJson.fkclient);
+                setDate(objJson.date);
+                setDeleted(objJson.deleted);
             }
         } catch (error) {
             throw error;
@@ -58,6 +73,34 @@ const ProductFormCrud = (props) => {
         }
     }
 
+    const valFkclient = () => {
+        setFkclientVal('');
+        setFkclientInv('');
+        if ((props.opeCrud === 'create' && validateStr(fkclient, '', props.opeCrud, false, ''))
+            || (props.opeCrud !== 'update' && validateStr('', fkclientRef.current.value, props.opeCrud, false, ''))
+        ) {
+            setFkclientVal(true);
+            return false;
+        } else {
+            setFkclientInv(true);
+            return true;
+        }
+    };
+
+    const valDate = () => {
+        setFkclientVal('');
+        setFkclientInv('');
+        if ((props.opeCrud === 'create' && validateDate(date, '', props.opeCrud, false, ''))
+            || (props.opeCrud !== 'update' && validateDate('', dateRef.current.value, props.opeCrud, false, ''))
+        ) {
+            setDateVal(true);
+            return false;
+        } else {
+            setDateInv(true);
+            return true;
+        }
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -69,7 +112,10 @@ const ProductFormCrud = (props) => {
         if (datosOk && props.opeCrud === 'create') {
             //Create
             const objCre = {
-                descrip
+                descrip,
+                fkclient,
+                date: Date.now,
+                deleted: false,
             };
 
             try {
@@ -104,7 +150,10 @@ const ProductFormCrud = (props) => {
         } else if (datosOk && props.productId && props.opeCrud === 'update') {
             //Update
             const objUpd = {
-                descrip: descripRef.current.value
+                descrip: descripRef.current.value,
+                fkclient,
+                date: dateRef.current.value,
+                deleted,
             };
 
             try {
@@ -140,7 +189,9 @@ const ProductFormCrud = (props) => {
             //Delete
             const objDel = {
                 descrip: descripRef.current.value,
-                eliminado: true,
+                fkclient,
+                date: dateRef.current.value,
+                deleted: true,
             };
 
             try {
@@ -209,7 +260,7 @@ const ProductFormCrud = (props) => {
                         size="sm"
                         type="text"
                         maxLength="20"
-                        onChange={(e) =>
+                        onChange={e =>
                             setDescrip(capitalizeFirstLetter(e.target.value))
                         }
                         isValid={descripVal}
@@ -223,6 +274,79 @@ const ProductFormCrud = (props) => {
                     />
                     <Form.Control.Feedback type="invalid" className="mt-2">
                         Campo obligatorio
+                    </Form.Control.Feedback>
+                </FloatingLabel>
+
+                <FloatingLabel
+                    label={
+                        <label>
+                            <FontAwesomeIcon
+                                icon={faInfoCircle}
+                                className="me-2 fieldIcon"
+                            />
+                            <b>Client</b>
+                            <label className="text-danger">*</label>
+                        </label>
+                    }
+                >
+                    <Form.Select
+                        className="form-select borderFloatingInput"
+                        onChange={e => setFkclient(e.target.value)}
+                        isValid={fkclientVal}
+                        isInvalid={fkclientInv}
+                        onBlur={valFkclient}
+                        ref={fkclientRef}
+                        disabled={
+                            props.opeCrud !== "update" && props.opeCrud !== "create"
+                        }
+                    >
+                        {props.opeCrud === 'create' && <option value="">Select a client</option>}
+                        {props.clients.map((client, index) =>
+                            <option
+                                key={index}
+                                value={client.id}
+                                selected={client.id === fkclient}
+                            >
+                                {`${client.name} ${client.surname}`}
+                            </option>)
+                        }
+                    </Form.Select>
+                    <Form.Control.Feedback type="invalid" className="mt-2">
+                        Campo obligatorio
+                    </Form.Control.Feedback>
+                </FloatingLabel>
+
+                <FloatingLabel
+                    label={
+                        <label>
+                            <FontAwesomeIcon
+                                icon={faCalendarAlt}
+                                className="me-2 floatingInput"
+                            />
+                            <label>
+                                <b>Date </b>
+                                <label className="text-danger">*</label>
+                            </label>
+                        </label>
+                    }
+                >
+                    <Form.Control
+                        className="borderFloatingInput"
+                        size="sm"
+                        type="date"
+                        maxLength="0"
+                        onChange={(e) => setDate(e.target.value)}
+                        isValid={dateVal}
+                        isInvalid={dateInv}
+                        onBlur={valDate}
+                        ref={dateRef}
+                        defaultValue={date}
+                        disabled={
+                            props.opeCrud !== "update" && props.opeCrud !== "create"
+                        }
+                    />
+                    <Form.Control.Feedback type="invalid" className="mt-2">
+                        Campo obligatorio.
                     </Form.Control.Feedback>
                 </FloatingLabel>
 

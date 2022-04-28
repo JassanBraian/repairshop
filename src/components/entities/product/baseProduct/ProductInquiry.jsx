@@ -1,8 +1,16 @@
 import React from 'react';
-import { Table } from 'react-bootstrap';
+import { useState } from 'react';
+import { Table, Modal } from 'react-bootstrap';
+import ProductFormCrud from './ProductFormCrud';
 import ProductFuncFC from './ProductFuncFC';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
 
 const ProductInquiry = (props) => {
+    const [modCre, setModCre] = useState(false);
+    const hideModalCre = () => setModCre(false);
+    const showModalCre = () => setModCre(true);
+
     return (
         <>
             <div className="row">
@@ -10,7 +18,12 @@ const ProductInquiry = (props) => {
                     Productos
                 </div>
                 <div className="col">
-                    Agregar
+                    <section
+                        className="me-1 px-1 d-flex align-items-center justify-content-center btnAe "
+                        onClick={showModalCre}
+                    >
+                        <FontAwesomeIcon icon={faPlus} />
+                    </section>
                 </div>
             </div>
             <div className="row mx-1">
@@ -38,6 +51,7 @@ const ProductInquiry = (props) => {
                                         <section className='d-flex justify-content-center'>
                                             <ProductFuncFC
                                                 productId={product.id}
+                                                clients={props.clients}
                                                 products={props.products}
                                                 getProducts={props.getProducts}
                                             />
@@ -49,6 +63,26 @@ const ProductInquiry = (props) => {
                     </tbody>
                 </Table>
             </div>
+
+            <Modal
+                show={modCre}
+                onHide={hideModalCre}
+                backdrop="static"
+                keyboard={false}
+                size="lg"
+                centered
+            >
+                <Modal.Header className="mb-3" closeButton>
+                    Create
+                </Modal.Header>
+                <ProductFormCrud
+                    opeCrud={"create"}
+                    hideModal={hideModalCre}
+                    clients={props.clients}
+                    products={props.products}
+                    getProducts={props.getProducts}
+                />
+            </Modal>
         </>
     );
 };

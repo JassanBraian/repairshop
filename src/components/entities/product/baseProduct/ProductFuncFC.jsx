@@ -49,6 +49,7 @@ const ProductFuncFC = (props) => {
                         productId={props.productId}
                         opeCrud={'read'}
                         hideModal={hideModalRead}
+                        clients={props.clients}
                         getProducts={props.getProducts}
                     />
                 </ModalBody>
@@ -70,6 +71,7 @@ const ProductFuncFC = (props) => {
                         productId={props.productId}
                         opeCrud={'update'}
                         hideModal={hideModalUpd}
+                        clients={props.clients}
                         getProducts={props.getProducts}
                     />
                 </ModalBody>
@@ -91,6 +93,7 @@ const ProductFuncFC = (props) => {
                         productId={props.productId}
                         opeCrud={'delete'}
                         hideModal={hideModalDel}
+                        clients={props.clients}
                         products={props.products}
                         getProducts={props.getProducts}
                     />

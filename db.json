@@ -1,64 +1,98 @@
 {
-    "product": [
-        {
-            "descrip": "Smart Tv Noblex Dk50x6500 Led 4k 50",
-            "fkclient": 1,
-            "date": "...",
-            "deleted": false,
-            "id": 1
-        }
-    ],
-    "client": [
-        {
-            "name": "Juan",
-            "surname": "Rodriguez",
-            "contact": "3819999999",
-            "date": 0,
-            "deleted": false,
-            "id": 1
-        }
-    ],
-    "repair": [
-        {
-            "fkproduct": 1,
-            "fkstate": 1,
-            "observation": "...",
-            "date": 0,
-            "deleted": false,
-            "id": 1
-        }
-    ],
-    "staterepair": [
-        {
-            "descrip": "Pendiente",
-            "id": 1
-        },
-        {
-            "descrip": "En proceso",
-            "id": 2
-        },
-        {
-            "descrip": "Eliminado",
-            "id": 3
-        },
-        {
-            "descrip": "Finalizado",
-            "id": 4
-        },
-        {
-            "descrip": "Entregado",
-            "id": 5
-        }
-    ],
-    "invoice": [
-        {
-            "fkrepair": 1,
-            "price": 0,
-            "discount": 0,
-            "totalprice": 0,
-            "date": 0,
-            "deleted": false,
-            "id": 1
-        }
-    ]
+  "product": [
+    {
+      "descrip": "Smart Tv Noblex Dk50x6500 Led 4k 50",
+      "fkclient": 3,
+      "date": "...",
+      "deleted": false,
+      "id": 1
+    },
+    {
+      "descrip": "P1",
+      "fkclient": "2",
+      "deleted": false,
+      "id": 2
+    },
+    {
+      "descrip": "P2",
+      "fkclient": "1",
+      "deleted": false,
+      "id": 3
+    },
+    {
+      "descrip": "P3",
+      "fkclient": "1",
+      "deleted": false,
+      "id": 4
+    }
+  ],
+  "client": [
+    {
+      "name": "Juan",
+      "surname": "Rodriguez",
+      "contact": "3819999999",
+      "date": 0,
+      "deleted": false,
+      "id": 1
+    },
+    {
+      "name": "Pepe",
+      "surname": "Rodriguez",
+      "contact": "3819999999",
+      "date": 0,
+      "deleted": false,
+      "id": 2
+    },
+    {
+      "name": "Jorge",
+      "surname": "Rodriguez",
+      "contact": "3819999999",
+      "date": 0,
+      "deleted": false,
+      "id": 3
+    }
+  ],
+  "repair": [
+    {
+      "fkproduct": 1,
+      "fkstate": 1,
+      "observation": "...",
+      "date": 0,
+      "deleted": false,
+      "id": 1
+    }
+  ],
+  "staterepair": [
+    {
+      "descrip": "Pendiente",
+      "id": 1
+    },
+    {
+      "descrip": "En proceso",
+      "id": 2
+    },
+    {
+      "descrip": "Eliminado",
+      "id": 3
+    },
+    {
+      "descrip": "Finalizado",
+      "id": 4
+    },
+    {
+      "descrip": "Entregado",
+      "id": 5
+    }
+  ],
+  "invoice": [
+    {
+      "fkrepair": 1,
+      "price": 0,
+      "discount": 0,
+      "totalprice": 0,
+      "date": 0,
+      "deleted": false,
+      "id": 1
+    }
+  ]
 }

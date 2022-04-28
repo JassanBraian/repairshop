@@ -9,10 +9,11 @@ import OffCanvasComp from './components/common/offcanvas/OffCanvasComp';
 
 function App() {
   const [products, setProducts] = useState([]);
+  const [clients, setClients] = useState([]);
 
   useEffect(() => {
     getProducts();
-
+    getClients();
   }, []);
 
   const getProducts = async () => {
@@ -21,7 +22,20 @@ function App() {
       const req = await fetch(URL);
       const info = await req.json();
       if (req.status === 200) {
-        setProducts(info);
+        setProducts(info.filter(product => !product.deleted));
+      }
+    } catch (error) {
+      throw (error);
+    }
+  }
+
+  const getClients = async () => {
+    try {
+      const URL = process.env.REACT_APP_API_URL + "client";
+      const req = await fetch(URL);
+      const info = await req.json();
+      if (req.status === 200) {
+        setClients(info.filter(client => !client.deleted));
       }
     } catch (error) {
       throw (error);
@@ -44,6 +58,7 @@ function App() {
           path="/products"
           element={
             <ProductInquiry
+              clients={clients}
               products={products}
               getProducts={getProducts}
             />
