@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Form, FloatingLabel, } from 'react-bootstrap';
 import {
     validateStr, existDescrip,
-    capitalizeFirstLetter, validateDate
+    capitalizeFirstLetter, validateDate, validateInt
 } from '../../../../services/CrudBase/CrudValidationServices';
 import { getButtonLabel } from '../../../../services/CrudBase/CrudServices';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -76,8 +76,11 @@ const ProductFormCrud = (props) => {
     const valFkclient = () => {
         setFkclientVal('');
         setFkclientInv('');
-        if ((props.opeCrud === 'create' && validateStr(fkclient, '', props.opeCrud, false, ''))
-            || (props.opeCrud !== 'update' && validateStr('', fkclientRef.current.value, props.opeCrud, false, ''))
+
+        // if ((props.opeCrud === 'create' && validateInt(fkclient, '', props.opeCrud, false, ''))
+        if ((props.opeCrud === 'create')
+            || (props.opeCrud !== 'create')
+            //|| (props.opeCrud !== 'create' && validateInt('', fkclientRef.current.value, props.opeCrud, false, ''))
         ) {
             setFkclientVal(true);
             return false;
@@ -91,7 +94,7 @@ const ProductFormCrud = (props) => {
         setFkclientVal('');
         setFkclientInv('');
         if ((props.opeCrud === 'create' && validateDate(date, '', props.opeCrud, false, ''))
-            || (props.opeCrud !== 'update' && validateDate('', dateRef.current.value, props.opeCrud, false, ''))
+             || (props.opeCrud !== 'create' && validateDate('', dateRef.current.value, props.opeCrud, false, ''))
         ) {
             setDateVal(true);
             return false;
@@ -105,7 +108,7 @@ const ProductFormCrud = (props) => {
         e.preventDefault();
 
         let datosOk = false;
-        if (!valDescrip()) {
+        if (!valDescrip() && !valFkclient() && !valDate()) {
             datosOk = true;
         }
 
@@ -114,7 +117,7 @@ const ProductFormCrud = (props) => {
             const objCre = {
                 descrip,
                 fkclient,
-                date: Date.now,
+                date: date,
                 deleted: false,
             };
 
@@ -291,7 +294,8 @@ const ProductFormCrud = (props) => {
                 >
                     <Form.Select
                         className="form-select borderFloatingInput"
-                        onChange={e => setFkclient(e.target.value)}
+                        onChange={e => setFkclient(parseInt(e.target.value))}
+                        value={fkclient}
                         isValid={fkclientVal}
                         isInvalid={fkclientInv}
                         onBlur={valFkclient}
@@ -305,9 +309,9 @@ const ProductFormCrud = (props) => {
                             <option
                                 key={index}
                                 value={client.id}
-                                selected={client.id === fkclient}
+                                // selected={client.id === fkclient}
                             >
-                                {`${client.name} ${client.surname}`}
+                                {`${client.name} ${client.surname} | ${client.idendoc}`}
                             </option>)
                         }
                     </Form.Select>
@@ -333,7 +337,7 @@ const ProductFormCrud = (props) => {
                     <Form.Control
                         className="borderFloatingInput"
                         size="sm"
-                        type="date"
+                        type="datetime-local"
                         maxLength="0"
                         onChange={(e) => setDate(e.target.value)}
                         isValid={dateVal}

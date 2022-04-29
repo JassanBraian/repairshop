@@ -1,35 +1,25 @@
 {
   "product": [
     {
-      "descrip": "Smart Tv Noblex Dk50x6500 Led 4k 50",
+      "descrip": "A1a",
       "fkclient": 3,
-      "date": "...",
-      "deleted": false,
-      "id": 1
+      "date": "2022-04-30T10:40",
+      "deleted": true,
+      "id": 12
     },
     {
-      "descrip": "P1",
-      "fkclient": "2",
+      "descrip": "A2",
+      "fkclient": 3,
+      "date": "2022-04-29T15:09",
       "deleted": false,
-      "id": 2
-    },
-    {
-      "descrip": "P2",
-      "fkclient": "1",
-      "deleted": false,
-      "id": 3
-    },
-    {
-      "descrip": "P3",
-      "fkclient": "1",
-      "deleted": false,
-      "id": 4
+      "id": 13
     }
   ],
   "client": [
     {
       "name": "Juan",
       "surname": "Rodriguez",
+      "idendoc": "30303030",
       "contact": "3819999999",
       "date": 0,
       "deleted": false,
@@ -38,6 +28,7 @@
     {
       "name": "Pepe",
       "surname": "Rodriguez",
+      "idendoc": "30303030",
       "contact": "3819999999",
       "date": 0,
       "deleted": false,
@@ -46,6 +37,7 @@
     {
       "name": "Jorge",
       "surname": "Rodriguez",
+      "idendoc": "30303030",
       "contact": "3819999999",
       "date": 0,
       "deleted": false,

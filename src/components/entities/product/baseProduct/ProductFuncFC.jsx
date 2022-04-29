@@ -72,6 +72,7 @@ const ProductFuncFC = (props) => {
                         opeCrud={'update'}
                         hideModal={hideModalUpd}
                         clients={props.clients}
+                        products={props.products}
                         getProducts={props.getProducts}
                     />
                 </ModalBody>

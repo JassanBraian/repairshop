@@ -2,7 +2,7 @@ import format from "date-fns/format";
 
 // Validaciones generales
 
-export const expresions = {
+const expresions = {
     expCorreo:
         /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/,
     expNum: /^\(?(\d{3})\)?[-]?(\d{3})[-]?(\d{4})$/,
@@ -48,15 +48,13 @@ export const validateMail = (objCampo, objCampoRef, opeCrud, verfExis, funcExis)
 }
 
 export const validateInt = (objCampo, objCampoRef, opeCrud, verfExis, funcExis) => {
-    const objCampoOk = objCampo.trim();
-    const objCampoRefOk = objCampoRef.trim();
     const cond = expresions.expNum;
     let res = false;
-    if (opeCrud === "create" && !!objCampoOk && cond.test(objCampo)) {
+    if (opeCrud === "create" && !!objCampo && cond.test(objCampo.toString())) {
         if (verfExis && !funcExis) {
             res = true;
         } else if (!verfExis) res = true;
-    } else if (opeCrud !== "create" && !!objCampoRefOk && cond.test(objCampoRef)) {
+    } else if (opeCrud !== "create" && !!objCampoRef && cond.test(objCampoRef.toString())) {
         if (verfExis && !funcExis) {
             res = true;
         } else if (!verfExis) res = true;
