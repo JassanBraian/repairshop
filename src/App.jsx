@@ -1,8 +1,12 @@
 import { useEffect, useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import ProductInquiry from './components/entities/product/baseProduct/ProductInquiry';
+// Context
+import ProductProvider from './context/product/ProductProvider';
+// Pages
 import Home from './screens/Home/Home';
+import ProductInquiry from './components/entities/product/baseProduct/ProductInquiry';
+// Components
 import NavbarComp from './components/common/navbar/NavBarComp';
 import Footer from './components/common/footer/Footer';
 import OffCanvasComp from './components/common/offcanvas/OffCanvasComp';
@@ -43,30 +47,32 @@ function App() {
   }
 
   return (
-    <BrowserRouter>
-      <NavbarComp />
-      <Routes>
-        <Route
-          exact
-          path="/"
-          element={
-            <Home />
-          }
-        ></Route>
-        <Route
-          exact
-          path="/products"
-          element={
-            <ProductInquiry
-              clients={clients}
-              products={products}
-              getProducts={getProducts}
-            />
-          }
-        ></Route>
-      </Routes>
-      <Footer />
-    </BrowserRouter>
+    <ProductProvider>
+      <BrowserRouter>
+        <NavbarComp />
+        <Routes>
+          <Route
+            exact
+            path="/"
+            element={
+              <Home />
+            }
+          ></Route>
+          <Route
+            exact
+            path="/products"
+            element={
+              <ProductInquiry
+                clients={clients}
+                products={products}
+                getProducts={getProducts}
+              />
+            }
+          ></Route>
+        </Routes>
+        <Footer />
+      </BrowserRouter>
+    </ProductProvider>
   );
 }
 
