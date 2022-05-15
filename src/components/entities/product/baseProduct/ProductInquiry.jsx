@@ -41,7 +41,7 @@ const ProductInquiry = (props) => {
                     <tbody>
                         {props.products
                             .map((product, index) => (
-                                <tr key="{index}">
+                                <tr key={index.toString()}>
                                     <td>{index + 1}</td>
                                     <td>{product.descrip}</td>
                                     <td>{product.fkclient}</td>

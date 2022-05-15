@@ -13,6 +13,20 @@
       "date": "2022-04-29T15:09",
       "deleted": false,
       "id": 13
+    },
+    {
+      "descrip": "A3",
+      "fkclient": 3,
+      "date": "2022-05-15T23:48",
+      "deleted": false,
+      "id": 14
+    },
+    {
+      "descrip": "A4",
+      "fkclient": 3,
+      "date": "2022-05-15T00:51",
+      "deleted": false,
+      "id": 15
     }
   ],
   "client": [
