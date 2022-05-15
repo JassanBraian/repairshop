@@ -4,14 +4,15 @@ import {
     validateStr, existDescrip,
     capitalizeFirstLetter, validateDate, validateInt
 } from '../../../../services/CrudBase/CrudValidationServices';
-import { getButtonLabel } from '../../../../services/CrudBase/CrudServices';
+import { createObj, updateObj, deleteObj, getButtonLabel } from '../../../../services/CrudBase/CrudServices';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faInfoCircle, faCalendarAlt } from "@fortawesome/free-solid-svg-icons";
 import Swal from 'sweetalert2';
 
 const ProductFormCrud = (props) => {
 
-    const URLReUpDe = props.productId ? process.env.REACT_APP_API_URL + 'product/' + props.productId : '';
+    const URLReUpDe = props.productId ?
+        process.env.REACT_APP_API_URL + 'product/' + props.productId : '';
     const URLCreate = process.env.REACT_APP_API_URL + 'product';
 
     const [descrip, setDescrip] = useState('');
@@ -94,7 +95,7 @@ const ProductFormCrud = (props) => {
         setFkclientVal('');
         setFkclientInv('');
         if ((props.opeCrud === 'create' && validateDate(date, '', props.opeCrud, false, ''))
-             || (props.opeCrud !== 'create' && validateDate('', dateRef.current.value, props.opeCrud, false, ''))
+            || (props.opeCrud !== 'create' && validateDate('', dateRef.current.value, props.opeCrud, false, ''))
         ) {
             setDateVal(true);
             return false;
@@ -112,6 +113,15 @@ const ProductFormCrud = (props) => {
             datosOk = true;
         }
 
+        if (!datosOk) {
+            Swal.fire(
+                "Required fields error",
+                "Please fill all required fields",
+                "warning"
+            );
+            return false;
+        }
+
         if (datosOk && props.opeCrud === 'create') {
             //Create
             const objCre = {
@@ -121,35 +131,11 @@ const ProductFormCrud = (props) => {
                 deleted: false,
             };
 
-            try {
-                const config = {
-                    method: 'POST',
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify(objCre),
-                };
-
-                const req = await fetch(URLCreate, config);
-
-                if (req.status === 201) {
-                    Swal.fire(
-                        'Created object',
-                        'The object was created successfully',
-                        'success'
-                    );
-
-                    props.getProducts();
-                    props.hideModal();
-                }
-
-            } catch (error) {
-                Swal.fire(
-                    'An error occurred',
-                    'Sorry. An unexpected error occurred, try the operation later',
-                    'warning'
-                );
+            if (await createObj(objCre, URLCreate)) {
+                props.getProducts();
+                props.hideModal();
             }
+
         } else if (datosOk && props.productId && props.opeCrud === 'update') {
             //Update
             const objUpd = {
@@ -159,33 +145,9 @@ const ProductFormCrud = (props) => {
                 deleted,
             };
 
-            try {
-                const config = {
-                    method: 'PUT',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(objUpd),
-                };
-
-                const req = await fetch(URLReUpDe, config);
-
-                if (req.status === 200) {
-                    Swal.fire(
-                        'Edited object',
-                        'The object was edited successfully',
-                        'success'
-                    );
-
-                    props.getProducts();
-                    props.hideModal();
-                }
-            } catch (error) {
-                Swal.fire(
-                    'An error occurred',
-                    'Sorry. An unexpected error occurred, try the operation later',
-                    'warning'
-                );
+            if (await updateObj(objUpd, URLReUpDe)) {
+                props.getProducts();
+                props.hideModal();
             }
 
         } else if (datosOk && props.productId && props.opeCrud === 'delete') {
@@ -197,42 +159,11 @@ const ProductFormCrud = (props) => {
                 deleted: true,
             };
 
-            try {
-                const config = {
-                    method: "PUT",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify(objDel),
-                };
-
-                const req = await fetch(URLReUpDe, config);
-
-                if (req.status === 200) {
-                    Swal.fire(
-                        'Deleted object',
-                        'The object was deleted successfully',
-                        'success'
-                    );
-
-                    props.getProducts();
-                    props.hideModal();
-                }
-
-            } catch (error) {
-                Swal.fire(
-                    'An error occurred',
-                    'Sorry. An unexpected error occurred, try the operation later',
-                    'warning'
-                );
+            if (await deleteObj(objDel, URLReUpDe)) {
+                props.getProducts();
+                props.hideModal();
             }
-        } else if (!datosOk) {
-            //Input required error
-            Swal.fire(
-                "Required fields error",
-                "Please fill all required fields",
-                "warning"
-            );
+
         } else {
             //General crud error
             Swal.fire(
@@ -309,7 +240,7 @@ const ProductFormCrud = (props) => {
                             <option
                                 key={index}
                                 value={client.id}
-                                // selected={client.id === fkclient}
+                            // selected={client.id === fkclient}
                             >
                                 {`${client.name} ${client.surname} | ${client.idendoc}`}
                             </option>)
