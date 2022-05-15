@@ -12,26 +12,26 @@ import Footer from './components/common/footer/Footer';
 import OffCanvasComp from './components/common/offcanvas/OffCanvasComp';
 
 function App() {
-  const [products, setProducts] = useState([]);
+  //const [products, setProducts] = useState([]);
   const [clients, setClients] = useState([]);
 
   useEffect(() => {
-    getProducts();
+   // getProducts();
     getClients();
   }, []);
 
-  const getProducts = async () => {
-    try {
-      const URL = process.env.REACT_APP_API_URL + "product";
-      const req = await fetch(URL);
-      const info = await req.json();
-      if (req.status === 200) {
-        setProducts(info.filter(product => !product.deleted));
-      }
-    } catch (error) {
-      throw (error);
-    }
-  }
+  // const getProducts = async () => {
+  //   try {
+  //     const URL = process.env.REACT_APP_API_URL + "product";
+  //     const req = await fetch(URL);
+  //     const info = await req.json();
+  //     if (req.status === 200) {
+  //       setProducts(info.filter(product => !product.deleted));
+  //     }
+  //   } catch (error) {
+  //     throw (error);
+  //   }
+  // }
 
   const getClients = async () => {
     try {
@@ -64,8 +64,6 @@ function App() {
             element={
               <ProductInquiry
                 clients={clients}
-                products={products}
-                getProducts={getProducts}
               />
             }
           ></Route>

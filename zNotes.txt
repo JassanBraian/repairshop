@@ -1,6 +1,8 @@
 ==============================================================
-Continuar:
-1. llevar a cabo estructura 2.0
+Anances sustanciales:
+1. Implementar estructura 2.0 (formularios tratados como un solo state)
+2. Implementar estructura 3.0 (aplicar context y reducer)
+3. Implementar estructura 4.0 (sacar servicios de form crud y llevar a services)
 
 
 ==============================================================
@@ -8,6 +10,3 @@ Pendientes:
 1. validacion int da error
 
 ==============================================================
-1. Se desarrolla un context por cada entidad o es uno para almacenar todo globalmente
-2. .Provider que funcion cumple. Por qué no puede ser el componente directamente
-(ProductContext.Provider en vez de solo ProductContext)
