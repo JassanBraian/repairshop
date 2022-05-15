@@ -1,8 +1,10 @@
 ==============================================================
-Continuar:
-1. llevar a cabo estructura 2.0
+Substantial progress:
+1. Implement estruct 2.0 (move crud services to services folder)
+2. Implement estruct 3.0 (apply unique state per form component)
+3. Implement estruct 4.0 (apply context and reducer hooks) 
 
 
 ==============================================================
-Pendientes:
-1. validacion int da error
+Issues:
+1. Error int validation
