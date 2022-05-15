@@ -122,7 +122,7 @@ const ProductFormCrud = (props) => {
             return false;
         }
 
-        if (datosOk && props.opeCrud === 'create') {
+        if (props.opeCrud === 'create') {
             //Create
             const objCre = {
                 descrip,
@@ -136,7 +136,7 @@ const ProductFormCrud = (props) => {
                 props.hideModal();
             }
 
-        } else if (datosOk && props.productId && props.opeCrud === 'update') {
+        } else if (props.productId && props.opeCrud === 'update') {
             //Update
             const objUpd = {
                 descrip: descripRef.current.value,
@@ -150,7 +150,7 @@ const ProductFormCrud = (props) => {
                 props.hideModal();
             }
 
-        } else if (datosOk && props.productId && props.opeCrud === 'delete') {
+        } else if (props.productId && props.opeCrud === 'delete') {
             //Delete
             const objDel = {
                 descrip: descripRef.current.value,
@@ -165,7 +165,7 @@ const ProductFormCrud = (props) => {
             }
 
         } else {
-            //General crud error
+            //Crud general error
             Swal.fire(
                 'An error occurred',
                 'Sorry. An unexpected error occurred, try the operation later',
