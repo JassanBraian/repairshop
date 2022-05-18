@@ -30,6 +30,7 @@ const ProductFormCrud = (props) => {
         });
     };
 
+
     // const [descrip, setDescrip] = useState('');
     // const [fkclient, setFkclient] = useState(0);
     // const [date, setDate] = useState('');
@@ -42,9 +43,15 @@ const ProductFormCrud = (props) => {
     const [dateVal, setDateVal] = useState('');
     const [dateInv, setDateInv] = useState('');
 
-    const descripRef = useRef('');
-    const fkclientRef = useRef(0);
-    const dateRef = useRef('');
+    // const descripRef = useRef('');
+    // const fkclientRef = useRef(0);
+    // const dateRef = useRef('');
+
+    const frmProdRef = useRef({
+        descripRef: '',
+        fkclientRef: 0,
+        dateRef: ''
+    })
 
     useEffect(() => {
         props.productId && getProduct();
@@ -61,12 +68,12 @@ const ProductFormCrud = (props) => {
                 // setDate(objJson.date);
                 // setDeleted(objJson.deleted);
 
-                setFrmProd(
-                    objJson.descrip,
-                    objJson.fkclient,
-                    objJson.date,
-                    objJson.deleted
-                );
+                setFrmProd({
+                    descrip: objJson.descrip,
+                    fkclient: objJson.fkclient,
+                    date: objJson.date,
+                    deleted: objJson.deleted
+                });
             }
         } catch (error) {
             throw error;
@@ -85,8 +92,8 @@ const ProductFormCrud = (props) => {
             return false;
 
         } else if (props.opeCrud !== 'create'
-            && validateStr('', descripRef.current.value, props.opeCrud, true,
-                existDescrip(descripRef.current.value, props.opeCrud, props.productId, props.products)
+            && validateStr('', frmProdRef.descripRef.current.value, props.opeCrud, true,
+                existDescrip(frmProdRef.descripRef.current.value, props.opeCrud, props.productId, props.products)
             )
         ) {
             setDescripVal(true);
@@ -118,7 +125,7 @@ const ProductFormCrud = (props) => {
         setFkclientVal('');
         setFkclientInv('');
         if ((props.opeCrud === 'create' && validateDate(frmProd.date, '', props.opeCrud, false, ''))
-            || (props.opeCrud !== 'create' && validateDate('', dateRef.current.value, props.opeCrud, false, ''))
+            || (props.opeCrud !== 'create' && validateDate('', frmProdRef.dateRef.current.value, props.opeCrud, false, ''))
         ) {
             setDateVal(true);
             return false;
@@ -130,7 +137,7 @@ const ProductFormCrud = (props) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
+        
         let datosOk = false;
         if (!valDescrip() && !valFkclient() && !valDate()) {
             datosOk = true;
@@ -162,9 +169,9 @@ const ProductFormCrud = (props) => {
         } else if (props.productId && props.opeCrud === 'update') {
             //Update
             const objUpd = {
-                descrip: descripRef.current.value,
+                descrip: frmProdRef.descripRef.current.value,
                 fkclient: frmProd.fkclient,
-                date: dateRef.current.value,
+                date: frmProdRef.dateRef.current.value,
                 deleted: frmProd.deleted,
             };
 
@@ -176,9 +183,9 @@ const ProductFormCrud = (props) => {
         } else if (props.productId && props.opeCrud === 'delete') {
             //Delete
             const objDel = {
-                descrip: descripRef.current.value,
+                descrip: frmProdRef.descripRef.current.value,
                 fkclient: frmProd.fkclient,
-                date: dateRef.current.value,
+                date: frmProdRef.dateRef.current.value,
                 deleted: true,
             };
 
@@ -225,7 +232,7 @@ const ProductFormCrud = (props) => {
                         isValid={descripVal}
                         isInvalid={descripInv}
                         onBlur={valDescrip}
-                        ref={descripRef}
+                        ref={frmProdRef.descripRef}
                         defaultValue={capitalizeFirstLetter(frmProd.descrip)}
                         disabled={
                             props.opeCrud !== "update" && props.opeCrud !== "create"
@@ -257,7 +264,7 @@ const ProductFormCrud = (props) => {
                         isValid={fkclientVal}
                         isInvalid={fkclientInv}
                         onBlur={valFkclient}
-                        ref={fkclientRef}
+                        ref={frmProdRef.fkclientRef}
                         disabled={
                             props.opeCrud !== "update" && props.opeCrud !== "create"
                         }
@@ -303,7 +310,7 @@ const ProductFormCrud = (props) => {
                         isValid={dateVal}
                         isInvalid={dateInv}
                         onBlur={valDate}
-                        ref={dateRef}
+                        ref={frmProdRef.dateRef}
                         defaultValue={frmProd.date}
                         disabled={
                             props.opeCrud !== "update" && props.opeCrud !== "create"
