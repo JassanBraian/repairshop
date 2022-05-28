@@ -5,13 +5,12 @@ import OffCanvasComp from '../offcanvas/OffCanvasComp';
 
 
 const NavBarComp = () => {
-    let showOffCanvas = false;
 
     return (
         <>
             <Navbar bg="dark" variant="dark" >
+                <OffCanvasComp />
                 <Container fluid>
-                    
                     <Navbar.Brand href="">Repair Shop</Navbar.Brand>
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
@@ -22,8 +21,6 @@ const NavBarComp = () => {
                     </Navbar.Collapse>
                 </Container>
             </Navbar>
-
-            <OffCanvasComp/>
         </>
     );
 };

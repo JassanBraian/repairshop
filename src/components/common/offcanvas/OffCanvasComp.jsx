@@ -4,7 +4,7 @@ import { Offcanvas, Button } from 'react-bootstrap';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 
-const OffCanvasComp = (props) => {
+const OffCanvasComp = () => {
     const [show, setShow] = useState(false);
 
     const handleClose = () => setShow(false);
@@ -12,7 +12,7 @@ const OffCanvasComp = (props) => {
 
     return (
         <>
-            <Button className='me-2' onClick={handleShow}>
+            <Button className='ms-2 btn-dark' onClick={handleShow}>
                 <FontAwesomeIcon icon={faBars} className="fa-lg" />
             </Button>
             <Offcanvas show={show} onHide={handleClose}>

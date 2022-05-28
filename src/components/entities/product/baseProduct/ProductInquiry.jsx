@@ -21,8 +21,8 @@ const ProductInquiry = (props) => {
     return (
         <>
             <div className="row">
-                <div className="col">
-                    Productos
+                <div className="col mx-1">
+                    <h3>Productos</h3>
                 </div>
                 <div className="col">
                     <section
