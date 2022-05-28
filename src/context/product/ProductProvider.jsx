@@ -1,9 +1,12 @@
-import { useReducer } from "react";
+import { useReducer, useEffect } from "react";
 import ProductContext from "./ProductContext";
 import { GET_PRODUCTS } from '../../actions';
 import ProductReducer from "./ProductReducer";
 
 const ProductProvider = ({ children }) => {
+    useEffect(() => {
+        getProducts();
+    }, []);
 
     const initialProvider = {
         products: []

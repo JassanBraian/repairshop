@@ -6,16 +6,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import ProductContext from '../../../../context/product/ProductContext';
 
-const ProductInquiry = (props) => {
-    const { products, getProducts } = useContext(ProductContext);
+const ProductInquiry = () => {
+    const { products } = useContext(ProductContext);
 
     const [modCre, setModCre] = useState(false);
     const hideModalCre = () => setModCre(false);
     const showModalCre = () => setModCre(true);
-
-    useEffect(() => {
-        getProducts();
-    }, []);
 
     return (
         <>
@@ -57,7 +53,6 @@ const ProductInquiry = (props) => {
                                         <section className='d-flex justify-content-center'>
                                             <ProductFuncFC
                                                 productId={product.id}
-                                                clients={props.clients}
                                             />
                                         </section>
                                     </td>
@@ -82,9 +77,6 @@ const ProductInquiry = (props) => {
                 <ProductFormCrud
                     opeCrud={"create"}
                     hideModal={hideModalCre}
-                    clients={props.clients}
-                    products={props.products}
-                    getProducts={props.getProducts}
                 />
             </Modal>
         </>

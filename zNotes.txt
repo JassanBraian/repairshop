@@ -3,7 +3,7 @@ Substantial progress:
 1. Implement estruct 2.0 (move crud services to services folder)    --- Ready
 2. Implement estruct 3.0 (apply unique state per form component)    --- Ready
 3. Implement estruct 4.0 (apply context and reducer hooks) 
-4 y 5. Implement formix library... destructuring to forms
+4. Implement formix library...
 
 
 ==============================================================

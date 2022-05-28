@@ -1,10 +1,10 @@
-import { useState, useContext } from 'react';
+import { useState } from 'react';
 import { Modal, ModalBody } from 'react-bootstrap';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faCheck, faPen, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import ProductFormCrud from './ProductFormCrud';
 
-const ProductFuncFC = (props) => {    
+const ProductFuncFC = ({ productId }) => {
     const [modRead, setModRead] = useState(false);
     const hideModalRead = () => setModRead(false);
     const showModalRead = () => setModRead(true);
@@ -44,10 +44,9 @@ const ProductFuncFC = (props) => {
                 </Modal.Header>
                 <ModalBody>
                     <ProductFormCrud
-                        productId={props.productId}
+                        productId={productId}
                         opeCrud={'read'}
                         hideModal={hideModalRead}
-                        clients={props.clients}
                     />
                 </ModalBody>
             </Modal>
@@ -65,10 +64,9 @@ const ProductFuncFC = (props) => {
                 </Modal.Header>
                 <ModalBody>
                     <ProductFormCrud
-                        productId={props.productId}
+                        productId={productId}
                         opeCrud={'update'}
                         hideModal={hideModalUpd}
-                        clients={props.clients}
                     />
                 </ModalBody>
             </Modal>
@@ -86,10 +84,9 @@ const ProductFuncFC = (props) => {
                 </Modal.Header>
                 <ModalBody>
                     <ProductFormCrud
-                        productId={props.productId}
+                        productId={productId}
                         opeCrud={'delete'}
                         hideModal={hideModalDel}
-                        clients={props.clients}
                     />
                 </ModalBody>
             </Modal>

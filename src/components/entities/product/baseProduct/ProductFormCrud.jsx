@@ -10,12 +10,14 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faInfoCircle, faCalendarAlt } from "@fortawesome/free-solid-svg-icons";
 import Swal from 'sweetalert2';
 import ProductContext from '../../../../context/product/ProductContext';
+import ClientContext from '../../../../context/client/ClientContext';
 
-const ProductFormCrud = (props) => {    
+const ProductFormCrud = ({ productId, opeCrud, hideModal }) => {
     const { products, getProducts } = useContext(ProductContext);
+    const { clients } = useContext(ClientContext);
 
-    const URLReUpDe = props.productId ?
-        process.env.REACT_APP_API_URL + 'product/' + props.productId : '';
+    const URLReUpDe = productId ?
+        process.env.REACT_APP_API_URL + 'product/' + productId : '';
     const URLCreate = process.env.REACT_APP_API_URL + 'product';
 
     const [frmProd, setFrmProd] = useState({
@@ -55,7 +57,7 @@ const ProductFormCrud = (props) => {
     }
 
     useEffect(() => {
-        props.productId && getProduct();
+        productId && getProduct();
     }, []);
 
     const getProduct = async () => {
@@ -78,17 +80,17 @@ const ProductFormCrud = (props) => {
 
     const valDescrip = () => {
 
-        if (props.opeCrud === 'create' &&
-            validateStr(descrip, '', props.opeCrud, true,
-                existDescrip(descrip, props.opeCrud, props.productId, products)
+        if (opeCrud === 'create' &&
+            validateStr(descrip, '', opeCrud, true,
+                existDescrip(descrip, opeCrud, productId, products)
             )
         ) {
             setFrmProdValWithObj({ 'descripVal': true, 'descripInv': false });
             return true;
 
-        } else if (props.opeCrud !== 'create'
-            && validateStr('', descripRef.current.value, props.opeCrud, true,
-                existDescrip(descripRef.current.value, props.opeCrud, props.productId, products)
+        } else if (opeCrud !== 'create'
+            && validateStr('', descripRef.current.value, opeCrud, true,
+                existDescrip(descripRef.current.value, opeCrud, productId, products)
             )
         ) {
             setFrmProdValWithObj({ 'descripVal': true, 'descripInv': false });
@@ -101,10 +103,10 @@ const ProductFormCrud = (props) => {
 
     const valFkclient = () => {
 
-        // if ((props.opeCrud === 'create' && validateInt(fkclient, '', props.opeCrud, false, ''))
-        if ((props.opeCrud === 'create')
-            || (props.opeCrud !== 'create')
-            //|| (props.opeCrud !== 'create' && validateInt('', fkclientRef.current.value, props.opeCrud, false, ''))
+        // if ((opeCrud === 'create' && validateInt(fkclient, '', opeCrud, false, ''))
+        if ((opeCrud === 'create')
+            || (opeCrud !== 'create')
+            //|| (opeCrud !== 'create' && validateInt('', fkclientRef.current.value, opeCrud, false, ''))
         ) {
             setFrmProdValWithObj({ 'fkclientVal': true, 'fkclientInv': false });
             return true;
@@ -117,8 +119,8 @@ const ProductFormCrud = (props) => {
     const valDate = () => {
         setFrmProdValWithObj(dateVal, false);
         setFrmProdValWithObj(dateInv, false);
-        if ((props.opeCrud === 'create' && validateDate(date, '', props.opeCrud, false, ''))
-            || (props.opeCrud !== 'create' && validateDate('', dateRef.current.value, props.opeCrud, false, ''))
+        if ((opeCrud === 'create' && validateDate(date, '', opeCrud, false, ''))
+            || (opeCrud !== 'create' && validateDate('', dateRef.current.value, opeCrud, false, ''))
         ) {
             setFrmProdValWithObj({ 'dateVal': true, 'dateInv': false });
             return true;
@@ -145,7 +147,7 @@ const ProductFormCrud = (props) => {
             return false;
         }
 
-        if (props.opeCrud === 'create') {
+        if (opeCrud === 'create') {
             //Create           
             const objCre = {
                 descrip: capitalizeFirstLetter(descrip),
@@ -156,10 +158,10 @@ const ProductFormCrud = (props) => {
 
             if (await createObj(objCre, URLCreate)) {
                 getProducts();
-                props.hideModal();
+                hideModal();
             }
 
-        } else if (props.productId && props.opeCrud === 'update') {
+        } else if (productId && opeCrud === 'update') {
             //Update
             const objUpd = {
                 descrip: capitalizeFirstLetter(descripRef.current.value),
@@ -170,10 +172,10 @@ const ProductFormCrud = (props) => {
 
             if (await updateObj(objUpd, URLReUpDe)) {
                 getProducts();
-                props.hideModal();
+                hideModal();
             }
 
-        } else if (props.productId && props.opeCrud === 'delete') {
+        } else if (productId && opeCrud === 'delete') {
             //Delete
             const objDel = {
                 descrip: descripRef.current.value,
@@ -184,7 +186,7 @@ const ProductFormCrud = (props) => {
 
             if (await deleteObj(objDel, URLReUpDe)) {
                 getProducts();
-                props.hideModal();
+                hideModal();
             }
 
         } else {
@@ -225,7 +227,7 @@ const ProductFormCrud = (props) => {
                         ref={descripRef}
                         defaultValue={descrip}
                         disabled={
-                            props.opeCrud !== "update" && props.opeCrud !== "create"
+                            opeCrud !== "update" && opeCrud !== "create"
                         }
                     />
                     <Form.Control.Feedback type="invalid" className="mt-2">
@@ -255,11 +257,11 @@ const ProductFormCrud = (props) => {
                         onBlur={valFkclient}
                         ref={fkclientRef}
                         disabled={
-                            props.opeCrud !== "update" && props.opeCrud !== "create"
+                            opeCrud !== "update" && opeCrud !== "create"
                         }
                     >
-                        {props.opeCrud === 'create' && <option value="">Select a client</option>}
-                        {props.clients.map((client, index) =>
+                        {opeCrud === 'create' && <option value="">Select a client</option>}
+                        {clients.map((client, index) =>
                             <option
                                 key={index}
                                 value={client.id}
@@ -300,7 +302,7 @@ const ProductFormCrud = (props) => {
                         ref={dateRef}
                         defaultValue={date}
                         disabled={
-                            props.opeCrud !== "update" && props.opeCrud !== "create"
+                            opeCrud !== "update" && opeCrud !== "create"
                         }
                     />
                     <Form.Control.Feedback type="invalid" className="mt-2">
@@ -308,14 +310,14 @@ const ProductFormCrud = (props) => {
                     </Form.Control.Feedback>
                 </FloatingLabel>
 
-                {props.opeCrud === "read" ? null : (
+                {opeCrud === "read" ? null : (
                     <div className="d-flex justify-content-center">
                         <button
                             variant="info"
                             type="submit"
                             className="w-25 py-1"
                         >
-                            {getButtonLabel(props.opeCrud)}
+                            {getButtonLabel(opeCrud)}
                         </button>
                     </div>
                 )}
