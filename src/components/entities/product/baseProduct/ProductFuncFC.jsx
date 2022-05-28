@@ -1,5 +1,4 @@
-import React from 'react';
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { Modal, ModalBody } from 'react-bootstrap';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faCheck, faPen, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
@@ -50,7 +49,6 @@ const ProductFuncFC = (props) => {
                         opeCrud={'read'}
                         hideModal={hideModalRead}
                         clients={props.clients}
-                        getProducts={props.getProducts}
                     />
                 </ModalBody>
             </Modal>
@@ -72,8 +70,6 @@ const ProductFuncFC = (props) => {
                         opeCrud={'update'}
                         hideModal={hideModalUpd}
                         clients={props.clients}
-                        products={props.products}
-                        getProducts={props.getProducts}
                     />
                 </ModalBody>
             </Modal>
@@ -95,8 +91,6 @@ const ProductFuncFC = (props) => {
                         opeCrud={'delete'}
                         hideModal={hideModalDel}
                         clients={props.clients}
-                        products={props.products}
-                        getProducts={props.getProducts}
                     />
                 </ModalBody>
             </Modal>

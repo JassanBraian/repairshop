@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import { Form, FloatingLabel, } from 'react-bootstrap';
 import {
     validateStr, existDescrip,
@@ -9,8 +9,11 @@ import { createObj, updateObj, deleteObj, getButtonLabel }
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faInfoCircle, faCalendarAlt } from "@fortawesome/free-solid-svg-icons";
 import Swal from 'sweetalert2';
+import ProductContext from '../../../../context/product/ProductContext';
 
 const ProductFormCrud = (props) => {
+
+    const { products, getProducts } = useContext(ProductContext);
 
     const URLReUpDe = props.productId ?
         process.env.REACT_APP_API_URL + 'product/' + props.productId : '';
@@ -78,7 +81,7 @@ const ProductFormCrud = (props) => {
 
         if (props.opeCrud === 'create' &&
             validateStr(frmProd.descrip, '', props.opeCrud, true,
-                existDescrip(frmProd.descrip, props.opeCrud, props.productId, props.products)
+                existDescrip(frmProd.descrip, props.opeCrud, props.productId, products)
             )
         ) {
             setFrmProdValWithObj({ 'descripVal': true, 'descripInv': false });
@@ -86,7 +89,7 @@ const ProductFormCrud = (props) => {
 
         } else if (props.opeCrud !== 'create'
             && validateStr('', descripRef.current.value, props.opeCrud, true,
-                existDescrip(descripRef.current.value, props.opeCrud, props.productId, props.products)
+                existDescrip(descripRef.current.value, props.opeCrud, props.productId, products)
             )
         ) {
             setFrmProdValWithObj({ 'descripVal': true, 'descripInv': false });
@@ -153,7 +156,7 @@ const ProductFormCrud = (props) => {
             };
 
             if (await createObj(objCre, URLCreate)) {
-                props.getProducts();
+                getProducts();
                 props.hideModal();
             }
 
@@ -167,7 +170,7 @@ const ProductFormCrud = (props) => {
             };
 
             if (await updateObj(objUpd, URLReUpDe)) {
-                props.getProducts();
+                getProducts();
                 props.hideModal();
             }
 
@@ -181,7 +184,7 @@ const ProductFormCrud = (props) => {
             };
 
             if (await deleteObj(objDel, URLReUpDe)) {
-                props.getProducts();
+                getProducts();
                 props.hideModal();
             }
 

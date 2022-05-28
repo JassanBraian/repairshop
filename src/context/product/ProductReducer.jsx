@@ -7,7 +7,6 @@ export function ProductReducer(provider, action) {
                 ...provider,
                 products: [...action.payload]
             }
-
         default:
             return provider;
     }

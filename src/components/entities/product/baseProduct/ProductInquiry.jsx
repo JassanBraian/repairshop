@@ -1,5 +1,4 @@
-import React, { useContext, useEffect } from 'react';
-import { useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { Table, Modal } from 'react-bootstrap';
 import ProductFormCrud from './ProductFormCrud';
 import ProductFuncFC from './ProductFuncFC';
@@ -8,11 +7,11 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import ProductContext from '../../../../context/product/ProductContext';
 
 const ProductInquiry = (props) => {
+    const { products, getProducts } = useContext(ProductContext);
+
     const [modCre, setModCre] = useState(false);
     const hideModalCre = () => setModCre(false);
     const showModalCre = () => setModCre(true);
-
-    const { products, getProducts } = useContext(ProductContext);
 
     useEffect(() => {
         getProducts();
@@ -59,8 +58,6 @@ const ProductInquiry = (props) => {
                                             <ProductFuncFC
                                                 productId={product.id}
                                                 clients={props.clients}
-                                                products={props.products}
-                                                getProducts={props.getProducts}
                                             />
                                         </section>
                                     </td>
