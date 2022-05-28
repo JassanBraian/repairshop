@@ -1,15 +1,22 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import { useState } from 'react';
 import { Table, Modal } from 'react-bootstrap';
 import ProductFormCrud from './ProductFormCrud';
 import ProductFuncFC from './ProductFuncFC';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import ProductContext from '../../../../context/product/ProductContext';
 
 const ProductInquiry = (props) => {
     const [modCre, setModCre] = useState(false);
     const hideModalCre = () => setModCre(false);
     const showModalCre = () => setModCre(true);
+
+    const { products, getProducts } = useContext(ProductContext);
+
+    useEffect(() => {
+        getProducts();
+    }, []);
 
     return (
         <>
@@ -39,7 +46,7 @@ const ProductInquiry = (props) => {
                         </tr>
                     </thead>
                     <tbody>
-                        {props.products
+                        {products
                             .map((product, index) => (
                                 <tr key={index.toString()}>
                                     <td>{index + 1}</td>
