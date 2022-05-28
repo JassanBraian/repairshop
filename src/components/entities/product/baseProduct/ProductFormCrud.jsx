@@ -23,6 +23,8 @@ const ProductFormCrud = (props) => {
         deleted: ''
     });
 
+    // const {descrip, fkclient, date, deleted} = frmProd;
+
     const descripRef = useRef('');
     const fkclientRef = useRef(0);
     const dateRef = useRef('');
