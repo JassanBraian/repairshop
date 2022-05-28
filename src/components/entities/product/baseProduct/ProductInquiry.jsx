@@ -7,6 +7,7 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import ProductContext from '../../../../context/product/ProductContext';
 
 const ProductInquiry = (props) => {
+
     const { products, getProducts } = useContext(ProductContext);
 
     const [modCre, setModCre] = useState(false);

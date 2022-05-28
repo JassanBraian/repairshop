@@ -12,7 +12,7 @@ import Swal from 'sweetalert2';
 import ProductContext from '../../../../context/product/ProductContext';
 
 const ProductFormCrud = (props) => {
-
+    
     const { products, getProducts } = useContext(ProductContext);
 
     const URLReUpDe = props.productId ?
@@ -25,8 +25,7 @@ const ProductFormCrud = (props) => {
         date: '',
         deleted: ''
     });
-
-    // const {descrip, fkclient, date, deleted} = frmProd;
+    const { descrip, fkclient, date, deleted } = frmProd;
 
     const descripRef = useRef('');
     const fkclientRef = useRef(0);
@@ -40,6 +39,7 @@ const ProductFormCrud = (props) => {
         dateVal: false,
         dateInv: false
     });
+    const { descripVal, descripInv, fkclientVal, fkclientInv, dateVal, dateInv } = frmProdVal;
 
     const handleChangeFrmProd = e => {
         setFrmProd({
@@ -80,8 +80,8 @@ const ProductFormCrud = (props) => {
     const valDescrip = () => {
 
         if (props.opeCrud === 'create' &&
-            validateStr(frmProd.descrip, '', props.opeCrud, true,
-                existDescrip(frmProd.descrip, props.opeCrud, props.productId, products)
+            validateStr(descrip, '', props.opeCrud, true,
+                existDescrip(descrip, props.opeCrud, props.productId, products)
             )
         ) {
             setFrmProdValWithObj({ 'descripVal': true, 'descripInv': false });
@@ -116,9 +116,9 @@ const ProductFormCrud = (props) => {
     };
 
     const valDate = () => {
-        setFrmProdValWithObj(frmProdVal.dateVal, false);
-        setFrmProdValWithObj(frmProdVal.dateInv, false);
-        if ((props.opeCrud === 'create' && validateDate(frmProd.date, '', props.opeCrud, false, ''))
+        setFrmProdValWithObj(dateVal, false);
+        setFrmProdValWithObj(dateInv, false);
+        if ((props.opeCrud === 'create' && validateDate(date, '', props.opeCrud, false, ''))
             || (props.opeCrud !== 'create' && validateDate('', dateRef.current.value, props.opeCrud, false, ''))
         ) {
             setFrmProdValWithObj({ 'dateVal': true, 'dateInv': false });
@@ -149,9 +149,9 @@ const ProductFormCrud = (props) => {
         if (props.opeCrud === 'create') {
             //Create           
             const objCre = {
-                descrip: capitalizeFirstLetter(frmProd.descrip),
-                fkclient: frmProd.fkclient,
-                date: frmProd.date,
+                descrip: capitalizeFirstLetter(descrip),
+                fkclient,
+                date,
                 deleted: false,
             };
 
@@ -164,9 +164,9 @@ const ProductFormCrud = (props) => {
             //Update
             const objUpd = {
                 descrip: capitalizeFirstLetter(descripRef.current.value),
-                fkclient: frmProd.fkclient,
-                date: dateRef.current.value,
-                deleted: frmProd.deleted,
+                fkclient,
+                date,
+                deleted,
             };
 
             if (await updateObj(objUpd, URLReUpDe)) {
@@ -178,7 +178,7 @@ const ProductFormCrud = (props) => {
             //Delete
             const objDel = {
                 descrip: descripRef.current.value,
-                fkclient: frmProd.fkclient,
+                fkclient,
                 date: dateRef.current.value,
                 deleted: true,
             };
@@ -220,11 +220,11 @@ const ProductFormCrud = (props) => {
                         type="text"
                         maxLength="20"
                         onChange={handleChangeFrmProd}
-                        isValid={frmProdVal.descripVal}
-                        isInvalid={frmProdVal.descripInv}
+                        isValid={descripVal}
+                        isInvalid={descripInv}
                         onBlur={valDescrip}
                         ref={descripRef}
-                        defaultValue={frmProd.descrip}
+                        defaultValue={descrip}
                         disabled={
                             props.opeCrud !== "update" && props.opeCrud !== "create"
                         }
@@ -250,9 +250,9 @@ const ProductFormCrud = (props) => {
                         name="fkclient"
                         className="form-select borderFloatingInput"
                         onChange={handleChangeFrmProd}
-                        value={frmProd.fkclient}
-                        isValid={frmProdVal.fkclientVal}
-                        isInvalid={frmProdVal.fkclientInv}
+                        value={fkclient}
+                        isValid={fkclientVal}
+                        isInvalid={fkclientInv}
                         onBlur={valFkclient}
                         ref={fkclientRef}
                         disabled={
@@ -295,11 +295,11 @@ const ProductFormCrud = (props) => {
                         type="datetime-local"
                         maxLength="0"
                         onChange={handleChangeFrmProd}
-                        isValid={frmProdVal.dateVal}
-                        isInvalid={frmProdVal.dateInv}
+                        isValid={dateVal}
+                        isInvalid={dateInv}
                         onBlur={valDate}
                         ref={dateRef}
-                        defaultValue={frmProd.date}
+                        defaultValue={date}
                         disabled={
                             props.opeCrud !== "update" && props.opeCrud !== "create"
                         }

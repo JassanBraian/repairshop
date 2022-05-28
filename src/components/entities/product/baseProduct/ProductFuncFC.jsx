@@ -5,7 +5,7 @@ import { faEye, faCheck, faPen, faTrashAlt } from "@fortawesome/free-solid-svg-i
 import ProductFormCrud from './ProductFormCrud';
 
 const ProductFuncFC = (props) => {
-
+    
     const [modRead, setModRead] = useState(false);
     const hideModalRead = () => setModRead(false);
     const showModalRead = () => setModRead(true);
