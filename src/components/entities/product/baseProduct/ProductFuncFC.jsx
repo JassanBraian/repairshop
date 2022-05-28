@@ -4,8 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faCheck, faPen, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import ProductFormCrud from './ProductFormCrud';
 
-const ProductFuncFC = (props) => {
-    
+const ProductFuncFC = (props) => {    
     const [modRead, setModRead] = useState(false);
     const hideModalRead = () => setModRead(false);
     const showModalRead = () => setModRead(true);
@@ -41,7 +40,7 @@ const ProductFuncFC = (props) => {
                 centered
             >
                 <Modal.Header closeButton>
-                    Detalle
+                    Detail
                 </Modal.Header>
                 <ModalBody>
                     <ProductFormCrud

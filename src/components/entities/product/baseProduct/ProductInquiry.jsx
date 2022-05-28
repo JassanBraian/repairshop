@@ -7,7 +7,6 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import ProductContext from '../../../../context/product/ProductContext';
 
 const ProductInquiry = (props) => {
-
     const { products, getProducts } = useContext(ProductContext);
 
     const [modCre, setModCre] = useState(false);
@@ -22,15 +21,15 @@ const ProductInquiry = (props) => {
         <>
             <div className="row">
                 <div className="col mx-1">
-                    <h3>Productos</h3>
+                    <h3>Products</h3>
                 </div>
-                <div className="col">
-                    <section
-                        className="me-1 px-1 d-flex align-items-center justify-content-center btnAe "
+                <div className="col d-flex align-items-center justify-content-end">
+                    <button
+                        className="btnAa mx-1"
                         onClick={showModalCre}
                     >
-                        <FontAwesomeIcon icon={faPlus} />
-                    </section>
+                        <FontAwesomeIcon icon={faPlus} className="mx-2" />
+                    </button>
                 </div>
             </div>
             <div className="row mx-1">
@@ -38,11 +37,11 @@ const ProductInquiry = (props) => {
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th>Descrip</th>
+                            <th>Description</th>
                             <th>Client</th>
                             <th>Date</th>
                             <th>Deleted</th>
-                            <th className='text-center'>Operaciones</th>
+                            <th className='text-center'>Operations</th>
                         </tr>
                     </thead>
                     <tbody>

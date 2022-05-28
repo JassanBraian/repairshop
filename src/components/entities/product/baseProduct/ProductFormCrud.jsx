@@ -11,8 +11,7 @@ import { faInfoCircle, faCalendarAlt } from "@fortawesome/free-solid-svg-icons";
 import Swal from 'sweetalert2';
 import ProductContext from '../../../../context/product/ProductContext';
 
-const ProductFormCrud = (props) => {
-    
+const ProductFormCrud = (props) => {    
     const { products, getProducts } = useContext(ProductContext);
 
     const URLReUpDe = props.productId ?
